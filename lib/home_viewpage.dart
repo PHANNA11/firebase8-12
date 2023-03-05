@@ -73,17 +73,19 @@ class _HomeViewPageState extends State<HomeViewPage> {
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : ListView.builder(
-                      itemCount: docId.length,
-                      itemBuilder: (context, index) {
-                        return const Card(
-                          child: ListTile(
-                            leading: CircleAvatar(),
-                            title: Text('Hello'),
-                          ),
-                        );
-                      },
-                    );
+                  : snapshot.hasData
+                      ? ListView.builder(
+                          itemCount: docId.length,
+                          itemBuilder: (context, index) {
+                            return const Card(
+                              child: ListTile(
+                                leading: CircleAvatar(),
+                                title: Text('Hello'),
+                              ),
+                            );
+                          },
+                        )
+                      : const SizedBox();
         },
       ),
     );
