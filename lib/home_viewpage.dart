@@ -31,63 +31,44 @@ class _HomeViewPageState extends State<HomeViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: SafeArea(
-        child: Drawer(
-          child: Column(
-            children: [
-              Card(
-                color: Theme.of(context).primaryColor,
-                child: ListTile(
-                  onTap: () async {
-                    await FirebaseAuth.instance.signOut().then((value) {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const MyHomePage(title: 'Login User'),
-                          ),
-                          (route) => false);
-                    });
-                  },
-                  title: const Text('log Out'),
-                  trailing: const Icon((Icons.logout)),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-      appBar: AppBar(title: const Text('View Page')),
-      body: FutureBuilder(
-        builder: (context, snapshot) {
-          return (snapshot.hasError)
-              ? const Center(
-                  child: Icon(
-                    Icons.info,
-                    size: 35,
-                    color: Colors.red,
+        backgroundColor: Colors.white,
+        drawer: SafeArea(
+          child: Drawer(
+            child: Column(
+              children: [
+                Card(
+                  color: Theme.of(context).primaryColor,
+                  child: ListTile(
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut().then((value) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const MyHomePage(title: 'Login User'),
+                            ),
+                            (route) => false);
+                      });
+                    },
+                    title: const Text('log Out'),
+                    trailing: const Icon((Icons.logout)),
                   ),
                 )
-              : (snapshot.connectionState == ConnectionState.waiting)
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : snapshot.hasData
-                      ? ListView.builder(
-                          itemCount: docId.length,
-                          itemBuilder: (context, index) {
-                            return const Card(
-                              child: ListTile(
-                                leading: CircleAvatar(),
-                                title: Text('Hello'),
-                              ),
-                            );
-                          },
-                        )
-                      : const SizedBox();
-        },
-      ),
-    );
+              ],
+            ),
+          ),
+        ),
+        appBar: AppBar(title: const Text('View Page')),
+        body: ListView.builder(
+          itemCount: docId.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                leading: const CircleAvatar(),
+                title: Text(docId[index]),
+              ),
+            );
+          },
+        ));
   }
 }
