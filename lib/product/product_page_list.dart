@@ -22,7 +22,23 @@ class _ProductPageListState extends State<ProductPageList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('product Databse'.toUpperCase())),
+      appBar: AppBar(
+        title: Text('product Databse'.toUpperCase()),
+        actions: [
+          Chip(
+              label: Row(
+            children: const [
+              Icon(
+                Icons.search,
+              ),
+              Text((' Search '))
+            ],
+          )),
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
